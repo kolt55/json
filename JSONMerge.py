@@ -4,6 +4,9 @@ import json
 def merge_json_files(directory_path, output_file_path):
     # Get a list of all JSON files in the directory
     json_files = [f for f in os.listdir(directory_path) if f.endswith('.jsonl')]
+    
+    # Sort the JSON files based on file name in alphanumerical order
+    json_files.sort()  # Sorts the files alphabetically by file name
 
     # Open the output file in append mode
     with open(output_file_path, 'a') as output_file:
@@ -28,10 +31,8 @@ def merge_json_files(directory_path, output_file_path):
                         continue
 
 # Provide the directory containing the JSON files
-directory_path = "/Users/kbittner/Desktop/Skywalk Files/Annotator 1"
-
-
-output_file_path = "/Users/kbittner/Desktop/Skywalk Files/Annotator 1/FullFile.jsonl"
+directory_path = "/Users/kbittner/Desktop/Skywalk Files/Arbitrator"
+output_file_path = "/Users/kbittner/Desktop/Skywalk Files/Arbitrator/FullFile.jsonl"
 
 # Call the function to merge the JSON files
 merge_json_files(directory_path, output_file_path)
