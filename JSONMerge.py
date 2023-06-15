@@ -1,12 +1,14 @@
 import os
 import json
+import tkinter as tk
+from tkinter import filedialog
 
 def merge_json_files(directory_path, output_file_path):
     # Get a list of all JSON files in the directory
     json_files = [f for f in os.listdir(directory_path) if f.endswith('.jsonl')]
     
     # Sort the JSON files based on file name in alphanumerical order
-    json_files.sort()  # Sorts the files alphabetically by file name
+    json_files.sort()
 
     # Open the output file in append mode
     with open(output_file_path, 'a') as output_file:
@@ -30,9 +32,22 @@ def merge_json_files(directory_path, output_file_path):
                         # Skip invalid JSON objects
                         continue
 
-# Provide the directory containing the JSON files
-directory_path = "/Users/kbittner/Desktop/Skywalk Files/Arbitrator"
-output_file_path = "/Users/kbittner/Desktop/Skywalk Files/Arbitrator/FullFile.jsonl"
+# Create a Tkinter root window
+root = tk.Tk()
+root.withdraw()  # Hide the root window
 
-# Call the function to merge the JSON files
-merge_json_files(directory_path, output_file_path)
+# Ask for the input directory
+input_directory = filedialog.askdirectory(title="Select Input Directory")
+
+# Ask for the output file name
+output_file_path = filedialog.asksaveasfilename(
+    title="Save Output File",
+    defaultextension=".jsonl",
+    filetypes=(("JSON Lines Files", "*.jsonl"), ("All Files", "*.*"))
+)
+
+if input_directory and output_file_path:
+    # Call the function to merge the JSON files
+    merge_json_files(input_directory, output_file_path)
+else:
+    print("Input directory or output file name not provided.")
